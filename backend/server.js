@@ -11,9 +11,11 @@ const PORT = 3000;
 // KẾT NỐI GEMINI
 // ===============================
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY
-});
+const ai = process.env.GEMINI_API_KEY
+    ? new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY
+    })
+    : null;
 
 // ===============================
 // MIDDLEWARE
@@ -40,6 +42,12 @@ function shuffleArray(array) {
 }
 
 app.get("/api/quiz", async (req, res) => {
+
+    if (!ai) {
+        return res.status(500).json({
+            error: "Chưa cấu hình GEMINI_API_KEY trên server"
+        });
+    }
 
     const randomSeed =
     `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
