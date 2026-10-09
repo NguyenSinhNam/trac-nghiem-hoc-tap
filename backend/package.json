@@ -1,0 +1,15 @@
+{
+  "name": "lop2-quiz-backend",
+  "version": "1.0.0",
+  "description": "Backend AI tạo bài tập lớp 2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest"
+  }
+}

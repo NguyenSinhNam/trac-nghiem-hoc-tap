@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Tiếng Việt lớp 2 - Học Vui</title>
+
+    <link rel="stylesheet"
+        href="css/style-korean.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="index.html"
+                class="logo">
+
+                <span class="logo-icon">
+                    🎓
+                </span>
+
+                <span>
+                    Học Vui Lớp 2
+                </span>
+
+            </a>
+
+
+            <nav class="menu">
+
+                <a href="index.html">
+                    Trang chủ
+                </a>
+
+                <a href="tieng-viet.html"
+                    class="active">
+                    📚 Tiếng Việt
+                </a>
+
+                <a href="toan.html">
+                    🔢 Toán
+                </a>
+
+            </nav>
+
+            <div class="user-greeting" id="userGreeting">
+                👋 Xin chào, <strong id="displayUserName"></strong>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- PAGE BANNER -->
+        <section class="page-banner vietnamese-banner">
+
+            <div class="container">
+
+                <div class="page-icon">
+                    📚
+                </div>
+
+                <h1>
+                    Bài tập Tiếng Việt lớp 2
+                </h1>
+
+                <p>
+                    Hãy chọn đáp án đúng cho mỗi câu hỏi nhé!
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ -->
+        <section class="quiz-section">
+
+            <div class="container">
+
+                <div id="quizTimer" class="quiz-timer">
+                        <div class="timer-icon">⏱️</div>
+
+                        <div class="timer-content">
+                            <span class="timer-label">Thời gian còn lại</span>
+                            <strong id="timerDisplay">15:00</strong>
+                        </div>
+                    </div>
+
+                <div class="quiz-container">
+
+                    <div class="quiz-header">
+
+                        <div>
+
+                            <span class="quiz-label">
+                                📝 BÀI TRẮC NGHIỆM
+                            </span>
+
+                            <h2>
+                                Tiếng Việt lớp 2
+                            </h2>
+
+                        </div>
+
+                        <div class="question-count">
+                            20 câu
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div id="timerWarning" class="timer-warning">
+                        ⚠️ Thời gian sắp hết! Bạn còn 3 phút để hoàn thành bài.
+                    </div>
+
+                    <!-- FORM -->
+                    <form id="quizForm">
+
+                        <div id="questionsContainer">
+                            <!-- JavaScript tạo câu hỏi -->
+                        </div>
+
+
+                        <div class="submit-area">
+
+                            <button type="submit"
+                                class="btn btn-primary submit-btn">
+
+                                ✓ Nộp bài
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- RESULT -->
+                    <div id="result"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>
+                © 2026 Học Vui Lớp 2
+            </p>
+
+            <p>
+                Cùng bé học tập mỗi ngày 🌟
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

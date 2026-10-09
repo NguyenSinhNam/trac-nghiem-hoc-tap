@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Học vui lớp 2</title>
+
+    <link rel="stylesheet" href="css/style-korean.css">
+</head>
+
+<body>
+
+    <!-- LOGIN POPUP -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-overlay"></div>
+
+        <div class="login-box">
+            <button type="button" class="login-close" id="loginClose">
+                ×
+            </button>
+
+            <div class="login-icon">👋</div>
+
+            <h2>Xin chào!</h2>
+
+            <p>
+                Hãy nhập tên của bạn để bắt đầu học nhé!
+            </p>
+
+            <input
+                type="text"
+                id="userNameInput"
+                class="login-input"
+                placeholder="Nhập tên của bạn..."
+                maxlength="50"
+                autocomplete="off"
+            >
+
+            <button type="button" id="loginButton" class="login-button">
+                🚀 Bắt đầu học
+            </button>
+
+            <p id="loginError" class="login-error"></p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="container navbar">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎓</span>
+                <span>Học Vui Lớp 2</span>
+            </a>
+
+            <nav class="menu">
+                <a href="index.html" class="active">Trang chủ</a>
+                <a href="tieng-viet.html">📚 Tiếng Việt</a>
+                <a href="toan.html">🔢 Toán</a>
+            </nav>
+
+            <div class="user-greeting" id="userGreeting">
+                <p>👋 Xin chào, <strong id="displayUserName"></strong></p>
+                <button type="button" id="changeUserButton" class="change-user-btn">
+                    Đổi tên
+                </button>
+            </div>
+
+            
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+    <main>
+
+        <section class="hero">
+
+            <div class="container hero-content">
+
+                <div class="hero-text">
+
+                    <span class="badge">
+                        🌟 Học tập vui vẻ mỗi ngày
+                    </span>
+
+                    <h1>
+                        Cùng Nhật Anh học
+                        <span>Toán</span> và
+                        <span>Tiếng Việt</span>
+                    </h1>
+
+                    <p>
+                        Website bài tập trắc nghiệm dành cho học sinh lớp 2.
+                        Học thông qua những câu hỏi ngắn gọn, dễ hiểu và thú vị.
+                    </p>
+                    <div id="studentGreeting" class="student-greeting"></div>
+
+                    <div class="hero-buttons">
+                        <a href="toan.html" class="btn btn-primary">
+                            🔢 Làm bài Toán
+                        </a>
+
+                        <a href="tieng-viet.html" class="btn btn-secondary">
+                            📚 Học Tiếng Việt
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <div class="hero-image">
+
+                    <div class="book-card">
+
+                        <div class="book-icon">
+                            📖
+                        </div>
+
+                        <div class="floating floating-1">
+                            ➕
+                        </div>
+
+                        <div class="floating floating-2">
+                            ABC
+                        </div>
+
+                        <div class="floating floating-3">
+                            ⭐
+                        </div>
+
+                        <h3>
+                            Học mà vui
+                        </h3>
+
+                        <p>
+                            Mỗi ngày một chút,
+                            bé sẽ tiến bộ hơn!
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUBJECTS -->
+        <section class="subjects">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>📖</span>
+
+                    <h2>
+                        Chọn môn học
+                    </h2>
+
+                    <p>
+                        Bé hãy chọn một môn để bắt đầu làm bài nhé!
+                    </p>
+
+                </div>
+
+
+                <div class="subject-grid">
+
+                    <!-- TOÁN -->
+                    <a href="toan.html" class="subject-card math-card">
+
+                        <div class="subject-icon">
+                            🔢
+                        </div>
+
+                        <div class="subject-content">
+
+                            <h3>
+                                Toán lớp 2
+                            </h3>
+
+                            <p>
+                                Luyện tập phép cộng, phép trừ,
+                                số học, hình học và bài toán có lời văn.
+                            </p>
+
+                            <span class="card-link">
+                                Bắt đầu học →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- TIẾNG VIỆT -->
+                    <a href="tieng-viet.html" class="subject-card vietnamese-card">
+
+                        <div class="subject-icon">
+                            📚
+                        </div>
+
+                        <div class="subject-content">
+
+                            <h3>
+                                Tiếng Việt lớp 2
+                            </h3>
+
+                            <p>
+                                Luyện chính tả, từ và câu,
+                                đọc hiểu và sử dụng tiếng Việt.
+                            </p>
+
+                            <span class="card-link">
+                                Bắt đầu học →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+        <section class="features">
+
+            <div class="container">
+
+                <div class="feature-grid">
+
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Dễ học</h3>
+                        <p>
+                            Nội dung phù hợp với học sinh lớp 2.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="feature-icon">📝</div>
+                        <h3>Trắc nghiệm</h3>
+                        <p>
+                            Mỗi câu hỏi có 4 đáp án để bé lựa chọn.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Chấm điểm</h3>
+                        <p>
+                            Sau khi hoàn thành, bé có thể xem kết quả.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>
+                © 2026 Học Vui Lớp 2
+            </p>
+
+            <p>
+                Cùng bé học tập mỗi ngày 🌟
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
