@@ -123,7 +123,6 @@ async function loadQuiz() {
         const response = await fetch(
             `${API_BASE_URL}/api/quiz?subject=${encodeURIComponent(subject)}`
         );
-
         if (!response.ok) {
 
             const errorData =

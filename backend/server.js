@@ -325,10 +325,12 @@ app.get("/api/quiz", async (req, res) => {
 // KHỞI ĐỘNG SERVER
 // ===============================
 
-app.listen(PORT, () => {
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(
+            `Backend đang chạy tại http://localhost:${PORT}`
+        );
+    });
+}
 
-    console.log(
-        `Backend đang chạy tại http://localhost:${PORT}`
-    );
-
-});
+module.exports = app;
