@@ -109,7 +109,7 @@ async function loadQuiz() {
 
         // Gọi Backend
         const response = await fetch(
-            `http://localhost:3000/api/quiz?subject=${subject}`
+            `/api/quiz?subject=${subject}`
         );
 
         if (!response.ok) {
