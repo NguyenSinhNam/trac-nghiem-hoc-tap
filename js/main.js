@@ -108,8 +108,20 @@ async function loadQuiz() {
         `;
 
         // Gọi Backend
+        // const response = await fetch(
+        //     `/api/quiz?subject=${encodeURIComponent(subject)}`
+        // );
+
+        const isLocal = ["localhost", "127.0.0.1"].includes(
+            window.location.hostname
+        );
+
+        const API_BASE_URL = isLocal
+            ? "http://localhost:3000"
+            : "";
+
         const response = await fetch(
-            `../api/quiz?subject=${subject}`
+            `${API_BASE_URL}/api/quiz?subject=${encodeURIComponent(subject)}`
         );
 
         if (!response.ok) {
