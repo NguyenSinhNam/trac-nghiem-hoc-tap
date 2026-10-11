@@ -41,7 +41,13 @@ speechSynthesis.onvoiceschanged = () => {
     console.log(speechSynthesis.getVoices());
 };
 
+function updateDisplayUserName() {
+    const userName = localStorage.getItem("quizUserName") || "Bạn";
 
+    document.querySelectorAll(".displayUserName").forEach(element => {
+        element.textContent = userName;
+    });
+}
 
 // ========================================
 // XÁC ĐỊNH TRANG HIỆN TẠI
@@ -585,17 +591,17 @@ function showResult(
     if (percentage === 100) {
 
         message =
-            "🎉 Xuất sắc! Gin đã trả lời đúng tất cả!";
+            "🎉 Xuất sắc! Bạn đã trả lời đúng tất cả!";
 
     } else if (percentage >= 80) {
 
         message =
-            "👏 Rất tốt! Gin tiếp tục cố gắng!";
+            "👏 Rất tốt! Bạn tiếp tục cố gắng!";
 
     } else if (percentage >= 60) {
 
         message =
-            "👍 Khá tốt! Gin có thể làm tốt hơn nữa!";
+            "👍 Khá tốt! Bạn có thể làm tốt hơn nữa!";
 
     } else {
 
@@ -642,11 +648,21 @@ function showResult(
             </div>
 
             <div class="result-percentage">
-                🎯 Điểm: ${percentage}%
+                🎯 Điểm: ${percentage/10} 
             </div>
+
+            <button
+                type="button"
+                class="btn-retry"
+                onclick="restartQuiz()"
+            >
+                🔄 Làm bài mới
+            </button>
 
         </div>
     `;
+
+    updateDisplayUserName();
 
 
     // Cuộn tới kết quả
@@ -655,6 +671,67 @@ function showResult(
         block: "center"
     });
 
+}
+
+async function restartQuiz() {
+
+    // 1. Dừng đồng hồ cũ
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    // 2. Xóa câu hỏi cũ
+    questions = [];
+
+    // 3. Xóa kết quả
+    if (result) {
+        result.innerHTML = "";
+        result.style.display = "none";
+    }
+
+    // 4. Mở lại nút nộp bài
+    const submitButton = quizForm.querySelector(
+        "button[type='submit']"
+    );
+
+    if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "✓ Nộp bài";
+    }
+
+    // 5. Đặt lại giao diện đồng hồ
+    const timer = document.getElementById("quizTimer");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerWarning = document.getElementById("timerWarning");
+
+    if (timer) {
+        timer.classList.remove("warning", "danger", "expired");
+    }
+
+    if (timerDisplay) {
+        timerDisplay.textContent = "15:00";
+    }
+
+    if (timerWarning) {
+        timerWarning.classList.remove("show");
+        timerWarning.textContent =
+            "⚠️ Thời gian sắp hết! Bạn còn 3 phút để hoàn thành bài.";
+    }
+
+    // 6. Cuộn lên đầu phần câu hỏi
+    questionsContainer.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    // 7. Gọi Gemini lấy câu hỏi mới
+    await loadQuiz();
+
+    // 8. Chỉ bắt đầu đếm giờ khi tải thành công
+    if (questions.length > 0) {
+        startQuizTimer();
+    }
 }
 
 // =========================================
@@ -750,7 +827,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const userNameInput = document.getElementById("userNameInput");
     const loginError = document.getElementById("loginError");
 
-    const displayUserName = document.getElementById("displayUserName");
+    updateDisplayUserName();
+
     const userGreeting = document.getElementById("userGreeting");
     const changeUserButton = document.getElementById("changeUserButton");
 
@@ -759,9 +837,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Nếu đã có tên
     if (savedName) {
-        if (displayUserName) {
-            displayUserName.textContent = savedName;
-        }
+        updateDisplayUserName();
 
         if (userGreeting) {
             userGreeting.style.display = "flex";
@@ -796,10 +872,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Lưu tên vào LocalStorage
             localStorage.setItem("quizUserName", name);
 
-            // Hiển thị tên
-            if (displayUserName) {
-                displayUserName.textContent = name;
-            }
+            // Cập nhật tên ở tất cả vị trí
+            updateDisplayUserName();
 
             if (userGreeting) {
                 userGreeting.style.display = "flex";

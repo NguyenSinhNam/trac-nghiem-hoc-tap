@@ -61,6 +61,16 @@ a {
   color: #263238;
 }
 
+@media screen and (max-width: 900px) {
+  .logo {
+    display: none;
+  }
+
+  .navbar {
+    gap: 8px;
+  }
+}
+
 .logo-icon {
   width: 42px;
   height: 42px;
@@ -1621,7 +1631,7 @@ a {
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
-  background: rgba(255, 255, 255, 0.09);
+  background: rgb(53 106 129 / 35%);
   filter: blur(2px);
   animation: bannerOrb 8s ease-in-out infinite;
 }
@@ -2418,8 +2428,9 @@ button.btn-primary:hover {
 
 /* Page banner */
 .page-banner {
-  background:
-    linear-gradient(135deg, #e9f5ff, #d7fff2 52%, #fff0f5) !important;
+  /* background: linear-gradient(135deg, #e9f5ff, #d7fff2 52%, #fff0f5) !important; */
+  background: url(/img/bg-banner.jpg);
+  background-size: cover;
   color: var(--text) !important;
 }
 
@@ -3038,7 +3049,7 @@ input:focus-visible,
     font-weight: 600;
 }
 
-.user-greeting strong {
+.displayUserName {
     color: #c24e47;
 }
 
@@ -3197,4 +3208,39 @@ input:focus-visible,
 
 .speak-question:active {
     transform: scale(0.92);
+}
+
+.btn-retry {
+    display: block;
+    margin: 0 auto;
+    gap: 10px;
+
+    margin-top: 25px;
+    padding: 15px 30px;
+
+    background: linear-gradient(135deg, #818cf8, #a78bfa);
+    color: #ffffff;
+
+    border: none;
+    border-radius: 16px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 22px rgba(129, 140, 248, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.btn-retry:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(129, 140, 248, 0.35);
+}
+
+.btn-retry:active {
+    transform: scale(0.97);
 }
