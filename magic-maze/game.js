@@ -13,6 +13,87 @@
   let best = Number(localStorage.getItem(BEST_KEY)) || 0;
   let audioCtx = null, lastMove = 0, messageTimeout = null, previousFrame = 0;
   let touchStart = null;
+  let quizActive = false, quizQuestion = null, quizLocked = false;
+  let pauseStartedAt = 0;
+  const QUIZ_BANK = [
+    {type:'Toán',q:'27 + 15 = ?',a:['42','32','41','52'],correct:'42'},
+    {type:'Toán',q:'63 - 28 = ?',a:['35','45','34','36'],correct:'35'},
+    {type:'Toán',q:'46 + 27 = ?',a:['73','63','72','83'],correct:'73'},
+    {type:'Toán',q:'90 - 47 = ?',a:['43','53','42','44'],correct:'43'},
+    {type:'Toán',q:'18 + 24 = ?',a:['42','32','44','52'],correct:'42'},
+    {type:'Toán',q:'81 - 36 = ?',a:['45','55','46','35'],correct:'45'},
+    {type:'Toán',q:'7 × 3 = ?',a:['21','24','18','28'],correct:'21'},
+    {type:'Toán',q:'5 × 4 = ?',a:['20','25','15','24'],correct:'20'},
+    {type:'Toán',q:'18 : 3 = ?',a:['6','5','7','9'],correct:'6'},
+    {type:'Toán',q:'24 : 4 = ?',a:['6','8','4','5'],correct:'6'},
+    {type:'Toán',q:'Số liền sau của 59 là số nào?',a:['60','58','69','50'],correct:'60'},
+    {type:'Toán',q:'1 giờ bằng bao nhiêu phút?',a:['60 phút','30 phút','100 phút','24 phút'],correct:'60 phút'},
+    {type:'Tiếng Việt',q:'Từ nào viết đúng chính tả?',a:['chăm chỉ','chăm chĩ','trăm chỉ','chăm trỉ'],correct:'chăm chỉ'},
+    {type:'Tiếng Việt',q:'Từ nào chỉ hoạt động?',a:['chạy','cái bàn','màu đỏ','xinh đẹp'],correct:'chạy'},
+    {type:'Tiếng Việt',q:'Từ nào chỉ sự vật?',a:['con mèo','nhanh nhẹn','đọc sách','vui vẻ'],correct:'con mèo'},
+    {type:'Tiếng Việt',q:'Từ nào chỉ đặc điểm?',a:['hiền lành','nhảy dây','cây bút','đi học'],correct:'hiền lành'},
+    {type:'Tiếng Việt',q:'Dấu nào đặt cuối câu hỏi?',a:['Dấu chấm hỏi (?)','Dấu chấm (.)','Dấu phẩy (,)','Dấu hai chấm (:)'],correct:'Dấu chấm hỏi (?)'},
+    {type:'Tiếng Việt',q:'Từ trái nghĩa với “cao” là gì?',a:['thấp','dài','rộng','xa'],correct:'thấp'},
+    {type:'Tiếng Việt',q:'Từ nào viết đúng chính tả?',a:['ngôi trường','ngôi chường','ngôi trườn','ngôi trườngg'],correct:'ngôi trường'},
+    {type:'Tiếng Việt',q:'Từ nào cùng nghĩa với “chăm chỉ”?',a:['siêng năng','lười biếng','ồn ào','chậm chạp'],correct:'siêng năng'},
+    {type:'Tiếng Việt',q:'Câu nào là câu hỏi?',a:['Bạn tên là gì?','Em đang học bài.','Bông hoa đẹp quá!','Hãy đóng cửa.'],correct:'Bạn tên là gì?'},
+    {type:'Tiếng Việt',q:'Từ nào chỉ hoạt động học tập?',a:['viết bài','quyển vở','sạch sẽ','màu xanh'],correct:'viết bài'},
+    {type:'Tiếng Việt',q:'Từ nào viết đúng chính tả?',a:['sạch sẽ','sạch sẻ','xạch sẽ','sạch xẽ'],correct:'sạch sẽ'},
+    {type:'Tiếng Việt',q:'Từ trái nghĩa với “vui” là gì?',a:['buồn','đẹp','sáng','nhanh'],correct:'buồn'}
+  ];
+  let lastQuizIndex = -1;
+  function openStarQuiz(){
+    if(quizActive) return;
+    quizActive = true; quizLocked = false; running = false;
+    pauseStartedAt = performance.now();
+    let idx = rand(QUIZ_BANK.length);
+    if(QUIZ_BANK.length > 1 && idx === lastQuizIndex) idx = (idx+1+rand(QUIZ_BANK.length-1)) % QUIZ_BANK.length;
+    lastQuizIndex = idx;
+    quizQuestion = QUIZ_BANK[idx];
+    $('quizCategory').textContent = quizQuestion.type === 'Toán' ? '🔢 Câu hỏi Toán' : '📚 Câu hỏi Tiếng Việt';
+    $('quizQuestion').textContent = quizQuestion.q;
+    $('quizFeedback').textContent = 'Chọn đáp án đúng để nhận ⭐ +20 điểm và tiếp tục!';
+    const choices = shuffle([...quizQuestion.a]);
+    $('quizAnswers').replaceChildren();
+    choices.forEach((choice, i) => {
+      const btn = document.createElement('button');
+      btn.type='button'; btn.className='quiz-answer';
+      btn.textContent = `${String.fromCharCode(65+i)}. ${choice}`;
+      btn.addEventListener('click',()=>answerStarQuiz(choice,btn));
+      $('quizAnswers').appendChild(btn);
+    });
+    $('quizOverlay').classList.remove('hidden');
+    $('quizAnswers').querySelector('button')?.focus();
+    tone(720,.14);
+  }
+  function answerStarQuiz(choice, button){
+    if(!quizActive || quizLocked) return;
+    quizLocked = true;
+    $('quizAnswers').querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice === quizQuestion.correct){
+      button.classList.add('correct');
+      score += 20; collected++;
+      $('quizFeedback').textContent = '🎉 Chính xác! +20 điểm. Tiếp tục khám phá nhé!';
+      tone(880,.16); setTimeout(()=>tone(1100,.18),120);
+      updateUI();
+      setTimeout(()=>{
+        quizActive=false; $('quizOverlay').classList.add('hidden');
+        startedAt += performance.now()-pauseStartedAt;
+        running=true;
+        if(same(player,exit) && hasKey) finishLevel();
+      },850);
+    } else {
+      button.classList.add('incorrect');
+      $('quizFeedback').textContent = `❌ Chưa đúng! Đáp án là: ${quizQuestion.correct}. Hành trình bắt đầu lại từ màn 1.`;
+      tone(220,.35,'triangle');
+      setTimeout(()=>{
+        quizActive=false; $('quizOverlay').classList.add('hidden');
+        startLevel(true);
+        notify('🌱 Bắt đầu lại từ màn 1!');
+      },1900);
+    }
+  }
+
   const rand = n => Math.floor(Math.random()*n);
   const shuffle = arr => { for(let i=arr.length-1;i>0;i--){const j=rand(i+1);[arr[i],arr[j]]=[arr[j],arr[i]];}return arr; };
   const same = (a,b) => a && b && a.x===b.x && a.y===b.y;
@@ -96,6 +177,7 @@
     $('timeText').textContent=formatTime(elapsed);
   }
   function startLevel(resetScore=false){
+    quizActive=false; quizLocked=false; $('quizOverlay').classList.add('hidden');
     if(resetScore){score=0;level=1;}
     size=Math.min(19,9+2*Math.floor((level-1)/2));
     grid=generateMaze(size);player={x:1,y:1};visual={x:1,y:1};
@@ -103,14 +185,14 @@
     placeItems();$('overlay').classList.add('hidden');updateUI();notify(`🌸 Màn ${level} bắt đầu!`);
   }
   function move(dx,dy){
-    if(!running||completed||!$('overlay').classList.contains('hidden'))return;
+    if(!running||quizActive||completed||!$('overlay').classList.contains('hidden'))return;
     const now=performance.now();if(now-lastMove<95)return;lastMove=now;
     const nx=player.x+dx,ny=player.y+dy;
     if(nx<0||ny<0||nx>=size||ny>=size||grid[ny][nx]===1){tone(190,.06,'sine',.018);return;}
     player.x=nx;player.y=ny;steps++;tone(330,.035,'sine',.023);
     if(key&&same(player,key)){hasKey=true;key=null;score+=50;notify('🗝️ Đã tìm thấy chìa khóa!');tone(660,.2);}
-    for(const star of stars){if(!star.got&&same(player,star)){star.got=true;collected++;score+=20;notify('⭐ +20 điểm!');tone(880,.16);}}
-    if(same(player,exit)){
+    for(const star of stars){if(!star.got&&same(player,star)){star.got=true;openStarQuiz();break;}}
+    if(!quizActive && same(player,exit)){
       if(hasKey)finishLevel();else{notify('🔒 Hãy tìm chìa khóa trước!');tone(210,.18,'triangle');}
     }
     updateUI();
@@ -154,14 +236,14 @@
     requestAnimationFrame(render);
   }
   const dirs={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
-  document.addEventListener('keydown',e=>{const dir=dirs[e.key]||dirs[e.key.toLowerCase()];if(!dir)return;e.preventDefault();move(...dir);});
+  document.addEventListener('keydown',e=>{if(quizActive)return;const dir=dirs[e.key]||dirs[e.key.toLowerCase()];if(!dir)return;e.preventDefault();move(...dir);});
   document.querySelectorAll('[data-dir]').forEach(btn=>{
     const map={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
     btn.addEventListener('pointerdown',e=>{e.preventDefault();move(...map[btn.dataset.dir]);});
   });
   canvas.addEventListener('touchstart',e=>{const touch=e.changedTouches[0];touchStart={x:touch.clientX,y:touch.clientY};},{passive:true});
   canvas.addEventListener('touchend',e=>{if(!touchStart)return;const touch=e.changedTouches[0],dx=touch.clientX-touchStart.x,dy=touch.clientY-touchStart.y;touchStart=null;if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;if(Math.abs(dx)>Math.abs(dy))move(Math.sign(dx),0);else move(0,Math.sign(dy));},{passive:true});
-  $('restartBtn').addEventListener('click',()=>startLevel());
+  $('restartBtn').addEventListener('click',()=>{if(!quizActive)startLevel();});
   $('modalRestartBtn').addEventListener('click',()=>startLevel());
   $('nextBtn').addEventListener('click',()=>{if(level===MAX_LEVEL)startLevel(true);else{level++;startLevel();}});
   function updateSoundButton(){$('soundBtn').textContent=soundEnabled?'🔊 Âm thanh: Bật':'🔇 Âm thanh: Tắt';$('soundBtn').setAttribute('aria-pressed',String(soundEnabled));}

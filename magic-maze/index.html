@@ -17,7 +17,7 @@
       <div class="hello">Xin chào, <strong class="displayUserName">Bạn</strong>! 👋</div>
     </header>
     <main>
-      <section class="intro"><span class="eyebrow">✦ PHIÊU LƯU CÙNG BÉ ✦</span><h1>🧭 Mê Cung <em>Kỳ Diệu</em></h1><p>Dẫn bạn thỏ 🐰 tìm chìa khóa 🗝️, nhặt sao ⭐ và mở cánh cửa thần tiên 🚪!</p></section>
+      <section class="intro"><span class="eyebrow">✦ PHIÊU LƯU CÙNG BÉ ✦</span><h1>🧭 Mê Cung <em>Kỳ Diệu</em></h1><p>Dẫn bạn thỏ 🐰 tìm chìa khóa 🗝️, trả lời câu hỏi khi nhặt sao ⭐ và mở cánh cửa thần tiên 🚪!</p></section>
       <section class="game-shell" aria-label="Trò chơi mê cung">
         <div class="stats">
           <div class="stat"><span>🌼 Màn chơi</span><strong id="levelText">1 / 12</strong></div>
@@ -38,9 +38,18 @@
           </aside>
         </div>
       </section>
-      <section class="tips"><span>💡 Mẹo nhỏ:</span> Bạn không cần nhặt hết sao để qua màn, nhưng càng nhiều sao thì điểm càng cao. Chìa khóa là bắt buộc!</section>
+      <section class="tips"><span>💡 Mẹo nhỏ:</span> Mỗi ngôi sao là một câu hỏi Toán hoặc Tiếng Việt. Trả lời đúng được 20 điểm, trả lời sai sẽ chơi lại từ màn 1. Chìa khóa là bắt buộc!</section>
     </main>
     <footer>Made with 💜 cho những nhà thám hiểm nhỏ • Không cần API</footer>
+  </div>
+  <div id="quizOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="quizQuestion">
+    <div class="modal quiz-modal">
+      <div class="modal-emoji">⭐</div>
+      <span id="quizCategory" class="quiz-category">🔢 Câu hỏi Toán</span>
+      <h2 id="quizQuestion">Câu hỏi</h2>
+      <div id="quizAnswers" class="quiz-answers"></div>
+      <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+    </div>
   </div>
   <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div id="modalEmoji" class="modal-emoji">🎉</div><h2 id="modalTitle">Hoàn thành!</h2><p id="modalDescription"></p><div id="modalSummary" class="modal-summary"></div><button type="button" id="nextBtn" class="btn btn-primary">Màn tiếp theo →</button><button type="button" id="modalRestartBtn" class="btn btn-link">Chơi lại màn này</button></div></div>
 </body>
