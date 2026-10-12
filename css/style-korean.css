@@ -111,6 +111,236 @@ a {
   color: #4f46e5;
 }
 
+/* ===== MENU PASTEL KOREAN STYLE ===== */
+.menu {
+    position: relative;
+    z-index: 1000;
+}
+
+.menu > ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu > ul > li {
+    position: relative;
+    list-style: none;
+}
+
+.menu > ul > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 19px;
+    border-radius: 16px;
+    color: #655a78;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .25s ease,
+                color .25s ease,
+                transform .25s ease,
+                box-shadow .25s ease;
+}
+
+.menu > ul > li > a:hover {
+    color: #8b62c6;
+    background: #f4edff;
+    transform: translateY(-2px);
+}
+
+.menu > ul > li > a.active {
+    color: #fff;
+    /* background: linear-gradient(135deg, #a98ae8, #e1a4d2); */
+    box-shadow: 0 5px 15px rgba(169, 138, 232, .25);
+}
+
+/* ===== GAME DROPDOWN ===== */
+.menu .has-sub > a::after {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 4px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform .25s ease;
+}
+
+.menu .has-sub:hover > a::after,
+.menu .has-sub:focus-within > a::after {
+    transform: rotate(225deg) translateY(-2px);
+}
+
+.menu .has-sub:hover > a,
+.menu .has-sub:focus-within > a {
+    color: #9069c9;
+    background: #f4edff;
+}
+
+/* Submenu */
+.menu .subMenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 245px;
+    padding: 10px;
+    border: 1px solid #f0e8fa;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .98);
+    box-shadow: 0 15px 45px rgba(99, 75, 145, .14);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(.98);
+    pointer-events: none;
+
+    transition: opacity .25s ease,
+                transform .25s ease,
+                visibility .25s ease;
+}
+
+/* Vùng nối tránh mất hover khi di chuột xuống */
+.menu .subMenu::before {
+    content: "";
+    position: absolute;
+    height: 12px;
+    left: 0;
+    right: 0;
+    top: -12px;
+}
+
+.menu .has-sub:hover .subMenu,
+.menu .has-sub:focus-within .subMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Các game bên trong */
+.menu .subMenu a {
+    display: flex;
+    align-items: center;
+    padding: 13px 15px;
+    margin: 3px 0;
+    border-radius: 13px;
+    color: #655a78;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: background .25s ease,
+                color .25s ease,
+                transform .25s ease;
+}
+
+.menu .subMenu a:hover,
+.menu .subMenu a:focus-visible {
+    color: #8b62c6;
+    background: #f5eeff;
+    transform: translateX(4px);
+}
+
+/* Đánh dấu game đang mở */
+.menu .subMenu a.active {
+    color: #8b62c6;
+    background: #f1e8ff;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .menu > ul {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .menu > ul > li > a {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .menu .subMenu {
+        left: auto;
+        right: 0;
+        min-width: 215px;
+    }
+
+    /* Cho phép mở submenu bằng chạm/focus */
+    .menu .has-sub:focus-within .subMenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu a,
+    .menu .subMenu,
+    .menu .has-sub > a::after {
+        transition: none;
+    }
+}
+
+.menu .game-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 26px 12px 19px;
+    border: 0;
+    border-radius: 16px;
+    background: transparent;
+    color: #655a78;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .25s, color .25s;
+}
+
+.menu .game-menu-toggle::after {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    content: "⌄";
+    font-size: 20px;
+    line-height: 1;
+    transition: transform .25s;
+}
+
+.menu .has-sub:hover .game-menu-toggle,
+.menu .has-sub.is-open .game-menu-toggle {
+    color: #9069c9;
+    background: #f4edff;
+}
+
+/* .menu .has-sub.is-open .game-menu-toggle::after {
+    transform: rotate(180deg);
+} */
+
+.menu .has-sub.is-open .subMenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+@media (max-width: 768px) {
+    .menu .game-menu-toggle {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
 
 /* =========================
    HERO

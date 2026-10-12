@@ -34,22 +34,34 @@
             </a>
 
             <nav class="menu">
+                <ul>
+                    <li>
+                        <a href="index.html" class="active">🏠 Trang chủ</a>
+                    </li>
 
-                <a href="index.html">
-                    Trang chủ
-                </a>
+                    <li>
+                        <a href="tieng-viet.html">📚 Tiếng Việt</a>
+                    </li>
 
-                <a href="tieng-viet.html">
-                    📚 Tiếng Việt
-                </a>
+                    <li>
+                        <a href="toan.html">🔢 Toán</a>
+                    </li>
 
-                <a href="toan.html"
-                    class="active">
-                    🔢 Toán
-                </a>
+                    <li class="has-sub">
+                        <button type="button"
+                                class="game-menu-toggle"
+                                aria-expanded="false"
+                                aria-controls="game-submenu">
+                            🎮 Chơi Game
+                        </button>
 
-                <a href="game/index.html">🎮 Chơi game</a>
-
+                        <div class="subMenu" id="game-submenu">
+                            <a href="game/index.html">🎴 Lật hình</a>
+                            <a href="xep-hinh/index.html">🧩 Xếp hình Puzzle</a>
+                            <a href="magic-maze/index.html">🧭 Mê Cung Kỳ Diệu</a>
+                        </div>
+                    </li>
+                </ul>
             </nav>
 
             <div class="user-greeting" id="userGreeting">

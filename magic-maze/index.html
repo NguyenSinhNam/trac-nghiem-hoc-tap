@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf5ff">
+  <title>🌷 Mê Cung Kỳ Diệu | Vườn Mây</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="../index.html"><span class="brand-icon">🌷</span><span><strong>Vườn Mây</strong><small>Góc trò chơi</small></span></a>
+      <nav aria-label="Điều hướng"><a href="../index.html">🏡 Trang chủ</a><a href="../toan.html">📚 Toán</a><a href="../tieng-viet.html">✏️ Tiếng Việt</a></nav>
+      <div class="hello">Xin chào, <strong class="displayUserName">Bạn</strong>! 👋</div>
+    </header>
+    <main>
+      <section class="intro"><span class="eyebrow">✦ PHIÊU LƯU CÙNG BÉ ✦</span><h1>🧭 Mê Cung <em>Kỳ Diệu</em></h1><p>Dẫn bạn thỏ 🐰 tìm chìa khóa 🗝️, nhặt sao ⭐ và mở cánh cửa thần tiên 🚪!</p></section>
+      <section class="game-shell" aria-label="Trò chơi mê cung">
+        <div class="stats">
+          <div class="stat"><span>🌼 Màn chơi</span><strong id="levelText">1 / 12</strong></div>
+          <div class="stat"><span>⭐ Tổng điểm</span><strong id="scoreText">0</strong></div>
+          <div class="stat"><span>⏱️ Thời gian</span><strong id="timeText">00:00</strong></div>
+          <div class="stat"><span>🏆 Kỷ lục</span><strong id="bestText">0</strong></div>
+        </div>
+        <div class="game-layout">
+          <div class="board-panel">
+            <div class="board-head"><div><strong id="levelName">Khu vườn đầu tiên</strong><small id="objectiveText">Nhặt chìa khóa để mở cửa!</small></div><span id="keyBadge" class="key-badge">🗝️ Chưa có chìa</span></div>
+            <div class="canvas-wrap"><canvas id="mazeCanvas" width="600" height="600" aria-label="Bản đồ mê cung"></canvas><div id="floatingMessage" class="floating-message" aria-live="polite"></div></div>
+            <div class="progress-label"><span>Tiến trình phiêu lưu</span><span id="progressText">Màn 1/12</span></div><div class="progress-track"><div id="progressFill"></div></div>
+          </div>
+          <aside class="side-panel">
+            <div class="mission-card"><div class="mission-emoji">🐰</div><h2>Nhiệm vụ của thỏ</h2><p>Đi tìm chìa khóa, thu thập những ngôi sao lấp lánh rồi tới cổng ra nhé!</p><div class="mission-row"><span>🗝️ Chìa khóa</span><b id="keyStatus">Chưa tìm thấy</b></div><div class="mission-row"><span>⭐ Sao đã nhặt</span><b id="starStatus">0 / 3</b></div><div class="mission-row"><span>👣 Bước đi</span><b id="stepsText">0</b></div></div>
+            <div class="controls-card"><h2>🎮 Điều khiển</h2><p>Phím mũi tên / WASD hoặc bấm nút bên dưới.</p><div class="dpad" aria-label="Điều khiển di chuyển"><button type="button" class="up" data-dir="up" aria-label="Đi lên">▲</button><button type="button" class="left" data-dir="left" aria-label="Sang trái">◀</button><button type="button" class="down" data-dir="down" aria-label="Đi xuống">▼</button><button type="button" class="right" data-dir="right" aria-label="Sang phải">▶</button></div></div>
+            <div class="actions"><button id="restartBtn" type="button" class="btn btn-soft">↻ Chơi lại màn</button><button id="soundBtn" type="button" class="btn btn-soft" aria-pressed="true">🔊 Âm thanh: Bật</button></div>
+          </aside>
+        </div>
+      </section>
+      <section class="tips"><span>💡 Mẹo nhỏ:</span> Bạn không cần nhặt hết sao để qua màn, nhưng càng nhiều sao thì điểm càng cao. Chìa khóa là bắt buộc!</section>
+    </main>
+    <footer>Made with 💜 cho những nhà thám hiểm nhỏ • Không cần API</footer>
+  </div>
+  <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div id="modalEmoji" class="modal-emoji">🎉</div><h2 id="modalTitle">Hoàn thành!</h2><p id="modalDescription"></p><div id="modalSummary" class="modal-summary"></div><button type="button" id="nextBtn" class="btn btn-primary">Màn tiếp theo →</button><button type="button" id="modalRestartBtn" class="btn btn-link">Chơi lại màn này</button></div></div>
+</body>
+</html>

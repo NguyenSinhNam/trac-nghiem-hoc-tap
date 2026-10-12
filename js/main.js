@@ -912,6 +912,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* ===== GAME SUBMENU ===== */
+document.addEventListener("DOMContentLoaded", () => {
+    const gameToggle = document.querySelector(".game-menu-toggle");
+    const gameMenu = document.querySelector(".menu .has-sub");
+
+    if (!gameToggle || !gameMenu) return;
+
+    function closeGameMenu() {
+        gameMenu.classList.remove("is-open");
+        gameToggle.setAttribute("aria-expanded", "false");
+    }
+
+    gameToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const isOpen = gameMenu.classList.toggle("is-open");
+        gameToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!gameMenu.contains(event.target)) {
+            closeGameMenu();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeGameMenu();
+            gameToggle.focus();
+        }
+    });
+});
+
 
 // ========================================
 // BẮT ĐẦU

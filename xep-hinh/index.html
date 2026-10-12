@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f9eff9" />
+  <title>🧩 Puzzle Garden | Vườn xếp hình</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="floating-deco deco-one" aria-hidden="true">✿</div>
+  <div class="floating-deco deco-two" aria-hidden="true">✦</div>
+  <div class="floating-deco deco-three" aria-hidden="true">❀</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="Về trang chủ">🌷 <span>Little Garden <small>PLAY & LEARN</small></span></a>
+      <nav class="topnav" aria-label="Điều hướng">
+        <a href="../index.html">⌂ Trang chủ</a>
+        <a href="../toan.html">Toán</a>
+        <a href="../tieng-viet.html">Tiếng Việt</a>
+      </nav>
+      <div class="profile">👋 <span class="displayUserName">Bạn</span></div>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">✦ TRÒ CHƠI TƯ DUY ✦</span>
+      <h1>Vườn <span>xếp hình</span> 🧩</h1>
+      <p>Chạm vào ô nằm cạnh khoảng trống để di chuyển. Ghép các mảnh lại thành bức tranh thật xinh nhé!</p>
+    </section>
+
+    <main class="game-layout">
+      <section class="play-panel" aria-labelledby="playHeading">
+        <div class="panel-top"><div><span class="section-kicker">LET'S PLAY!</span><h2 id="playHeading">Ghép tranh nào!</h2></div><span class="status-pill" id="statusPill">🌱 Sẵn sàng</span></div>
+        <div class="stats" aria-label="Thống kê trò chơi">
+          <div class="stat"><span>⏱️ Thời gian</span><strong id="timeValue">00:00</strong></div>
+          <div class="stat"><span>👆 Số bước</span><strong id="moveValue">0</strong></div>
+          <div class="stat"><span>🏆 Kỷ lục</span><strong id="bestValue">—</strong></div>
+        </div>
+        <div class="board-wrap"><div id="puzzleBoard" class="puzzle-board" role="group" aria-label="Bảng xếp hình"></div></div>
+        <div class="progress-row"><span>Tiến độ ghép tranh</span><strong id="progressText">0%</strong></div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="actions"><button id="newGameBtn" class="btn btn-primary" type="button">↻ Trộn hình mới</button><button id="hintBtn" class="btn btn-soft" type="button">👀 Xem hình mẫu</button><button id="soundBtn" class="btn btn-icon" type="button" aria-label="Tắt âm thanh" aria-pressed="true">🔊</button></div>
+        <p id="liveStatus" class="sr-only" aria-live="polite"></p>
+      </section>
+
+      <aside class="side-panel" aria-label="Tùy chọn trò chơi">
+        <div class="side-card"><div class="card-head"><span>🎨 Chọn tranh</span><small>CHOOSE A PICTURE</small></div><div class="scene-picker" id="scenePicker"></div></div>
+        <div class="side-card"><div class="card-head"><span>✨ Độ khó</span><small>LEVEL UP!</small></div><div class="difficulty-picker" id="difficultyPicker"><button type="button" data-size="3" class="difficulty active"><b>🌱 Dễ</b><small>3 × 3</small></button><button type="button" data-size="4" class="difficulty"><b>🌼 Vừa</b><small>4 × 4</small></button><button type="button" data-size="5" class="difficulty"><b>🌟 Khó</b><small>5 × 5</small></button></div></div>
+        <div class="side-card tips"><span>💡 Mẹo nhỏ</span><p>Quan sát hình mẫu và ghép từng hàng từ trên xuống. Bạn có thể dùng phím mũi tên trên máy tính nữa đấy!</p></div>
+      </aside>
+    </main>
+    <footer>Made with ♡ for little learners · Puzzle Garden</footer>
+  </div>
+
+  <div id="previewModal" class="modal" hidden><div class="modal-backdrop" data-close="preview"></div><div class="modal-card preview-card" role="dialog" aria-modal="true" aria-labelledby="previewTitle"><button class="modal-close" data-close="preview" aria-label="Đóng">×</button><span class="modal-kicker">BỨC TRANH HOÀN CHỈNH</span><h2 id="previewTitle">Hình mẫu</h2><img id="previewImage" alt="Hình mẫu cần ghép"/><p>Nhớ vị trí các chi tiết rồi quay lại ghép nhé!</p><button class="btn btn-primary" data-close="preview">Tiếp tục chơi →</button></div></div>
+  <div id="winModal" class="modal" hidden><div class="modal-backdrop"></div><div class="modal-card win-card" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div class="win-icon">🏆</div><span class="modal-kicker">YOU DID IT!</span><h2 id="winTitle">Giỏi quá!</h2><p><span class="displayUserName">Bạn</span> đã ghép xong bức tranh!</p><div class="win-summary"><div><small>Thời gian</small><strong id="winTime">00:00</strong></div><div><small>Số bước</small><strong id="winMoves">0</strong></div></div><p id="recordMessage" class="record-message"></p><button id="playAgainBtn" class="btn btn-primary">🌷 Chơi tiếp nào!</button></div></div>
+</body>
+</html>
