@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8fc">
+  <meta name="description" content="Trò chơi lật thẻ trí nhớ dễ thương, miễn phí, chơi ngay trên trình duyệt.">
+  <title>Memory Garden 🌷 | Lật thẻ trí nhớ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Memory Garden - Trang chủ"><span class="brand-mark">✿</span><span>memory<span class="brand-accent">garden</span></span></a>
+      <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" aria-label="Tắt âm thanh"><span id="soundIcon">♫</span><span id="soundLabel">Âm thanh: Bật</span></button>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="pageTitle">
+        <div class="eyebrow">✦ LITTLE BRAIN, BIG MAGIC ✦</div>
+        <h1 id="pageTitle">Khu vườn <span>trí nhớ</span> <span class="title-flower" aria-hidden="true">🌷</span></h1>
+        <p>Lật hai chiếc thẻ để tìm đôi bạn giống nhau. Mỗi lần ghi nhớ là một lần khám phá!</p>
+      </section>
+
+      <section class="game-panel" aria-label="Trò chơi lật thẻ">
+        <div class="panel-top">
+          <div class="difficulty-group">
+            <label for="difficulty">Độ khó</label>
+            <div class="select-wrap"><select id="difficulty"><option value="easy">Dễ · 6 cặp</option><option value="medium" selected>Vừa · 8 cặp</option><option value="hard">Khó · 12 cặp</option></select></div>
+          </div>
+          <button class="restart-btn" id="restartBtn" type="button"><span aria-hidden="true">↻</span> Chơi lại</button>
+        </div>
+
+        <div class="stats" aria-label="Thống kê ván chơi">
+          <div class="stat stat-peach"><span class="stat-icon" aria-hidden="true">🪄</span><span class="stat-label">Lượt lật</span><strong id="moves">0</strong></div>
+          <div class="stat stat-lavender"><span class="stat-icon" aria-hidden="true">⏱️</span><span class="stat-label">Thời gian</span><strong id="timer">00:00</strong></div>
+          <div class="stat stat-mint"><span class="stat-icon" aria-hidden="true">🌟</span><span class="stat-label">Đã ghép</span><strong id="matches">0/8</strong></div>
+          <div class="stat stat-yellow"><span class="stat-icon" aria-hidden="true">🏆</span><span class="stat-label">Kỷ lục lượt</span><strong id="best">—</strong></div>
+        </div>
+
+        <div class="progress-row"><span id="progressText">Tìm đủ 8 cặp thẻ nhé!</span><span id="progressPercent">0%</span></div>
+        <div class="progress-track" role="progressbar" aria-label="Tiến độ ghép thẻ" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="board-wrap"><div id="board" class="board" aria-label="Bàn chơi lật thẻ"></div></div>
+        <div class="game-footer"><span>💗 Chơi vui và luyện trí nhớ mỗi ngày</span><span id="statusText" role="status" aria-live="polite">Chọn hai thẻ để bắt đầu!</span></div>
+      </section>
+      <p class="footer-note">Made with ♡ for curious little minds</p>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="winModal" hidden>
+    <section class="win-dialog" role="dialog" aria-modal="true" aria-labelledby="winTitle" aria-describedby="winMessage">
+      <div class="win-emoji" aria-hidden="true">🎉</div>
+      <div class="win-kicker">HOÀN THÀNH RỒI!</div>
+      <h2 id="winTitle">Bạn thật tuyệt vời!</h2>
+      <p id="winMessage">Bạn đã tìm được tất cả các cặp thẻ.</p>
+      <div class="win-stats"><div><strong id="winMoves">0</strong><span>Lượt lật</span></div><div><strong id="winTime">00:00</strong><span>Thời gian</span></div></div>
+      <p id="newRecord" class="new-record" hidden>🏆 Kỷ lục mới! Tuyệt quá!</p>
+      <button type="button" class="play-again" id="playAgainBtn">🌷 Chơi thêm lần nữa</button>
+    </section>
+  </div>
+  <div id="confetti" class="confetti-layer" aria-hidden="true"></div>
+</body>
+</html>
